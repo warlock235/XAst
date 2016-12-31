@@ -1,0 +1,9 @@
+#ifndef _NCC1701ATHRUSTDECOR_XBM
+#define _NCC1701ATHRUSTDECOR_XBM
+
+#define NCC1701AThrustDecor_width 5
+#define NCC1701AThrustDecor_height 9
+static unsigned char NCC1701AThrustDecor_bits[] = {
+   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1f, 0x0e};
+
+#endif

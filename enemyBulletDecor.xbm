@@ -1,0 +1,9 @@
+#ifndef _ENEMYBULLETDECOR_H
+#define _ENEMYBULLETDECOR_H
+
+#define enemyBulletDecor_width 3
+#define enemyBulletDecor_height 3
+static unsigned char enemyBulletDecor_bits[] = {
+   0xff, 0xff, 0xff};
+
+#endif
