@@ -1,0 +1,9 @@
+#ifndef _ENEMYDECOR_XBM
+#define _ENEMYDECOR_XBM
+
+#define ENEMYDecor_width 13
+#define ENEMYDecor_height 5
+static unsigned char ENEMYDecor_bits[] = {
+   0xfc, 0x07, 0x00, 0x00, 0x55, 0x15, 0x00, 0x00, 0x00, 0x00};
+
+#endif

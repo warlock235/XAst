@@ -1,0 +1,9 @@
+#ifndef _BULLETSCORINGICON_XBM
+#define _BULLETSCORINGICON_XBM
+
+#define bulletScoringIcon_width 5
+#define bulletScoringIcon_height 5
+static unsigned char bulletScoringIcon_bits[] = {
+   0x04, 0x0e, 0x1f, 0x0e, 0x04};
+
+#endif

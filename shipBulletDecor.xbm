@@ -1,0 +1,9 @@
+#ifndef _SHIPBULLETDECOR_H
+#define _SHIPBULLETDECOR_H
+
+#define shipBulletDecor_width 3
+#define shipBulletDecor_height 3
+static unsigned char shipBulletDecor_bits[] = {
+   0xff, 0xff, 0xff};
+
+#endif

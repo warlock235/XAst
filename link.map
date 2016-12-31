@@ -1,0 +1,56 @@
+(ld): halt 4
+(ld): savename XAsteroids
+(ld): filelist 13 1
+(ld): i /lib/crt0.o
+(ld): i ./xlc135fid.o
+(ld): i XAsteroids.o
+(ld): i rotatorDisplayData.o
+(ld): i compositePixmap.o
+(ld): lib /usr/lib/libXm.a
+(ld): lib /usr/lib/libXt.a
+(ld): lib /usr/lib/libX11.a
+(ld): lib /usr/lib/libsys.a
+(ld): lib /usr/ibmcxx/lib/libC.a
+(ld): lib /usr/lib/libm.a
+(ld): lib /usr/lib/libpthreads.a
+(ld): lib /usr/lib/libc.a
+LIBRARY: Shared object libXm.a[shr_32.o]: 2778 symbols imported.
+LIBRARY: Shared object libXt.a[shr4.o]: 488 symbols imported.
+LIBRARY: Shared object libX11.a[shr4.o]: 1211 symbols imported.
+LIBRARY: Shared object libX11.a[shr4net.o]: 1 symbols imported.
+LIBRARY: Shared object libC.a[shr.o]: 400 symbols imported.
+LIBRARY: Shared object libC.a[shr2.o]: 38 symbols imported.
+LIBRARY: Shared object libC.a[shr3.o]: 29 symbols imported.
+LIBRARY: Shared object libpthreads.a[shr_comm.o]: 88 symbols imported.
+LIBRARY: Shared object libpthreads.a[shr_xpg5.o]: 112 symbols imported.
+LIBRARY: Shared object libc.a[shr.o]: 2111 symbols imported.
+LIBRARY: Shared object libc.a[meth.o]: 2 symbols imported.
+LIBRARY: Shared object libc.a[aio.o]: 10 symbols imported.
+LIBRARY: Shared object libc.a[pse.o]: 78 symbols imported.
+LIBRARY: Shared object libc.a[dl.o]: 4 symbols imported.
+FILELIST: Number of previously inserted files processed: 13
+(ld): resolve
+ld: 0711-228 WARNING: Duplicate symbols were found while resolving symbols.
+	The following duplicates were found:
+ Symbol                    Source-File(Object) OR Import-File{Shared-object}
+ ------------------------- -------------------------------------------------
+ .__mi__FRC8Vector2dRC8Vector2d XAsteroids.C(XAsteroids.o)
+    ** Duplicate **        rotatorDisplayData.C(rotatorDisplayData.o)
+RESOLVE: 1363 of 10278 symbols were kept.
+RESOLVE: The return code is 4.
+(ld): addgl /usr/lib/glink.o
+ADDGL: Glink code added for 167 symbols.
+(ld): er full
+ER: There are no unresolved symbols.
+(ld): mismatch
+MISMATCH: No type mismatches exist.
+(ld): comprld
+COMPRLD: Kept 6255 of 6266 relocation entries.
+(ld): origin page 0x10000000 0x20000000
+(ld): libpath /usr/ibmcxx/lib:/usr/lib:/lib
+LIBPATH: Library path set to /usr/ibmcxx/lib:/usr/lib:/lib
+(ld): save 1L .
+SAVE: Section sizes = 431876+129632+556 (0x69704+0x1FA60+0x22C hex)
+SAVE: Size of TOC: 1848 (0x738 hex)
+(ld): rc
+RC: Highest return code was 4.
