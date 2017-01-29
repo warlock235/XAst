@@ -208,7 +208,7 @@ inline Vector2d PlayingField::CalcGravityAcceleration(const MovableObject* const
   double distMagSquared=dist.MagnitudeSquared(),
          distMag,
          radiusAverage=.5*(obj1->ObjectRotator().Radius()+obj2->ObjectRotator().Radius()),
-	 rsdiusAverageSquared=radiusAverage*radiusAverage,
+         radiusAverageSquared=radiusAverage*radiusAverage,
          cSquared=maxLinearVelocity*maxLinearVelocity,
          relativisticMass=obj2->ObjectRotator().Area()*sqrt(cSquared/(cSquared-obj2->ObjectLiner().VelocityMagnitude()
                                                                               *obj2->ObjectLiner().VelocityMagnitude())),
@@ -217,7 +217,7 @@ inline Vector2d PlayingField::CalcGravityAcceleration(const MovableObject* const
                            uSecondPerFrameRatio=uSecondsPerFrame/6.25E4, // Scale the acceleration to the currwnt frame rate of the game. 16 fps is baseline.
                            (dist/distMag)*universalGravitationalConst
                            *(distMag<radiusAverage ? relativisticMass*distMag
-			                             /(radiusAverageSquared*radiusAverage) // Overlapping object gravitational acceleration
+                                                     /(radiusAverageSquared*radiusAverage) // Overlapping object gravitational acceleration
                                                    : relativisticMass/distMagSquared) // Non-overlapping object gravitational accelaration
                            *uSecondPerFrameRatio*uSecondPerFrameRatio)
                         : Vector2d();
