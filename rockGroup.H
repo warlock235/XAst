@@ -34,8 +34,8 @@ class Rock: public MovableObject
     virtual void MissScript(Intersector&, const double createTime,
                                           const double existTime);
     virtual void HitScript(Intersector&, const double createTime,
-                                          const double existTime,
-                                          const Vector2d& intersectPoint);
+                                         const double existTime,
+                                         const Vector2d& intersectPoint);
     virtual void AlterMinVelocity(const double newMinVelocity);
     virtual void AlterMaxVelocity(const double newMaxVelocity)=0;
     virtual void AlterMaxAngularVelocity(const double newAngularVelocity);
@@ -52,8 +52,8 @@ class SpawningRock: public Rock
  {public:
     SpawningRock(const int score, const double scale, const int numSpawn);
     virtual void HitScript(Intersector&, const double createTime,
-                                          const double existTime,
-                                          const Vector2d& intersectPoint);
+                                         const double existTime,
+                                         const Vector2d& intersectPoint);
     virtual void AlterMinVelocity(const double newMinVelocity);
     virtual void AlterMaxVelocity(const double newMaxVelocity)=0;
     virtual void AlterMaxAngularVelocity(const double newAngularVelocity);
@@ -480,7 +480,7 @@ inline void RockGroup::NewROCKs()
         ROckAVSum+=ROckAngularVelocity;
         ROckVelocityMagnitude=ROckMaxVelocityMagnitude*gary_rand::rand_16()/RAND_MAX_16;
         if (ROckVelocityMagnitude<ROCK::minVelocity)
- 	        ROckVelocityMagnitude=ROCK::minVelocity;
+          ROckVelocityMagnitude=ROCK::minVelocity;
         ROckVelocity*=ROckVelocityMagnitude/ROckVelocity.Magnitude();
         ROckVMSum+=ROckVelocity;
        }
@@ -522,7 +522,7 @@ inline void RockGroup::NewROCKs()
                               -rockAVSum;
           Vector2d randomVec(gary_rand::rand_16()-RAND_MAX_16/2,gary_rand::rand_16()-RAND_MAX_16/2);
           rockVelocity=ROckVelocity
-                       +.1*ROckVelocityMagnitude*gary_rand::rand_16()*randomVec/(randomVec.Magnitude()*RAND_MAX_16);
+                       +.1*ROckVelocityMagnitude*gary_rand::rand_16()*randomVec/(randomVec.Magnitude()*RAND_MAX_16)
                        -rockVMSum;
           if ((rockVelocityMagnitude=rockVelocity.Magnitude())<ROCK::minVelocity)
             rockVelocity*=ROCK::minVelocity/rockVelocityMagnitude;
@@ -549,12 +549,12 @@ inline void RockGroup::NewROCKs()
   for(int i=0;i<numROCKs;++i)
     {do
        ROCKs[i].CurrentBox().MoveBox((2*gary_rand::rand_16()/(RAND_MAX_16+1)
-  	                                 ? Vector2d(ROCKPosWidth*(2*gary_rand::rand_16()/(RAND_MAX_16+1))+ROCK::scale,
-	 			                                        ROCKPosHeight*gary_rand::rand_16()/(RAND_MAX_16+1)+ROCK::scale)
-				                             : Vector2d(ROCKPosWidth*gary_rand::rand_16()/(RAND_MAX_16+1)+ROCK::scale,
-				                                        ROCKPosHeight*(2*gary_rand::rand_16()/(RAND_MAX_16+1))+ROCK::scale))
-	                                     +PlayingField::playArea.NorthWestCorner()
-                                       -ROCKs[i].CurrentBox().Center());
+                                     ? Vector2d(ROCKPosWidth*(2*gary_rand::rand_16()/(RAND_MAX_16+1))+ROCK::scale,
+                                                ROCKPosHeight*gary_rand::rand_16()/(RAND_MAX_16+1)+ROCK::scale)
+                                     : Vector2d(ROCKPosWidth*gary_rand::rand_16()/(RAND_MAX_16+1)+ROCK::scale,
+                                                ROCKPosHeight*(2*gary_rand::rand_16()/(RAND_MAX_16+1))+ROCK::scale))
+                                     +PlayingField::playArea.NorthWestCorner()
+                                     -ROCKs[i].CurrentBox().Center());
      while(!shipGroup.hyper.hyperspacing&&Intersect(ROCKs[i].CurrentBox(),shipGroup.ship->CurrentBox()));
      playingField.selfPermeableList.SetCurrentAtHole().GetData()=&ROCKs[i];
      playingField.selfPermeableList.SetCurrentAtHead().AddPrior();
