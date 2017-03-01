@@ -27,7 +27,7 @@ RotatorDisplayData::RotatorDisplayData(Display* const disp,
   area*=.25;
   radius=sqrt(radius);
   sideSize=2*radius+1.5;
-  box.SetBox(0,radius);
+  box.SetBox(Vector2d(),radius);
  }
 
 RotatorDisplayData::RotatorDisplayData(Display* const disp,
@@ -42,7 +42,7 @@ RotatorDisplayData::RotatorDisplayData(Display* const disp,
    }
   radius=sqrt(radius);
   sideSize=2*radius+1.5;
-  box.SetBox(0,radius);
+  box.SetBox(Vector2d(),radius);
  }
 
 RotatorDisplayData::RotatorDisplayData(Display* const disp,
