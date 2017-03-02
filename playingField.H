@@ -209,7 +209,7 @@ inline Vector2d PlayingField::CalcGravityAcceleration(const MovableObject* const
          distMag,
          radiusAverage=.5*(obj1->ObjectRotator().Radius()+obj2->ObjectRotator().Radius()),
          radiusAverageSquared=radiusAverage*radiusAverage,
-         c=maxLinearVelocity+0.1,
+         c=maxLinearVelocity*1.001,
          cSquared=c*c,
          relativisticMass=obj2->ObjectRotator().Area()*sqrt(cSquared/(cSquared-obj2->ObjectLiner().VelocityMagnitude()
                                                                               *obj2->ObjectLiner().VelocityMagnitude())),
