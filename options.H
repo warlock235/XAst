@@ -56,6 +56,7 @@ class Options
     static void VerifyFloatTextField(Widget,XtPointer,XtPointer);
     static void ApplyGlobalMaxVel(Widget,XtPointer,XtPointer);
     static void ApplyUniversalGravitationalConstant(Widget,XtPointer,XtPointer);
+    static void ApplyRelativisticMass(Widget,XtPointer,XtPointer);
     static void ApplyStarDestroyerShipShape(Widget,XtPointer,XtPointer);
     static void ApplyNCC1701AShipShape(Widget,XtPointer,XtPointer);
     static void ApplyNCC1701DShipShape(Widget,XtPointer,XtPointer);
@@ -100,6 +101,7 @@ class Options
     inline void AlterFramesPerSecond(const double newUSecondsPerFrame);
     inline void AlterGlobalMaxVel(const double newMaxVel);
     inline void AlterUniversalGravitationalConstant(const double newUniversalGravitationalConst);
+    inline void AlterRelativisticMass(const Boolean relMass);
     inline void AlterShipShape(Ship& newip,Thrust& newrust);
     inline void AlterShipAccel(const double newAccel);
     inline void AlterShipMaxVel(const double newMaxVel);
@@ -169,8 +171,10 @@ class Options
            enemyPixmapLabel,
            bulletScoreLabel,
            bulletPixmapLabel,
-           shipShapeLabel,
+           relativisticMass,
            verticalSeparator2,
+           horizontalSeparator4,
+           shipShapeLabel,
            shipShape,
            shipStarDestroyer,
            shipNCC1701A,
@@ -195,7 +199,7 @@ class Options
            shipBulletDurationValue,
            numShipBulletsLabel,
            numShipBulletsScale,
-           horizontalSeparator4,
+           horizontalSeparator5,
  	         ROCKMinVelLabel,
            ROCKMinVelValue,
  	         ROCKMaxVelLabel,
@@ -210,7 +214,7 @@ class Options
            transparentRocks,
            enemiesExist,
            verticalSeparator3,
-           horizontalSeparator5,
+           horizontalSeparator6,
 	         ENEMYMinVelLabel,
            ENEMYMinVelValue,
 	         ENEMYMaxVelLabel,
@@ -219,7 +223,7 @@ class Options
            enemyMinVelValue,
 	         enemyMaxVelLabel,
            enemyMaxVelValue,
-           horizontalSeparator6,
+           horizontalSeparator7,
            enemyBulletVelLabel,
            enemyBulletVelValue,
            enemyBulletDurationLabel,
@@ -308,7 +312,8 @@ class Options
                      defaultenemyScore,
                      defaultEnemyBulletScore;
 
-    static const Boolean defaultOpaqueRocks,
+    static const Boolean defaultRelativisticMass,
+                         defaultOpaqueRocks,
                          defaultAutoFire,
                          defaultEnemiesExist;
 
@@ -464,6 +469,7 @@ const int Options::defaultUSecondsPerFrame=PlayingField::uSecondsPerFrame,
           Options::defaultEnemyBulletScore=EnemyBullet::score;
 
 const Options::Boolean Options::defaultOpaqueRocks=RockGroup::opaqueRocks,
+                       Options::defaultRelativisticMass=PlayingField::relativisticMass,
                        Options::defaultAutoFire=ShipBulletGroup::autoFire,
                        Options::defaultEnemiesExist=PlayingField::enemiesExist;
 
@@ -1010,7 +1016,7 @@ inline Options::Options(int argc, char** argv): exitFlag(on),
                                            XmNlabelPixmap,ENEMYIconPixmap,
                                            XmNtopAttachment,XmATTACH_WIDGET,
                                            XmNtopWidget,ENEMYScoreLabel,
-                                           XmNbottomAttachment,XmATTACH_FORM,
+                                           XmNbottomAttachment,XmATTACH_NONE,
                                            XmNleftAttachment,XmATTACH_FORM,
                                            XmNrightAttachment,XmATTACH_NONE,
 	                                         NULL);
@@ -1049,7 +1055,7 @@ inline Options::Options(int argc, char** argv): exitFlag(on),
                                            XmNlabelPixmap,enemyIconPixmap,
                                            XmNtopAttachment,XmATTACH_WIDGET,
                                            XmNtopWidget,enemyScoreLabel,
-                                           XmNbottomAttachment,XmATTACH_FORM,
+                                           XmNbottomAttachment,XmATTACH_NONE,
                                            XmNleftAttachment,XmATTACH_WIDGET,
                                            XmNleftWidget,ENEMYPixmapLabel,
                                            XmNrightAttachment,XmATTACH_NONE,
@@ -1091,12 +1097,70 @@ inline Options::Options(int argc, char** argv): exitFlag(on),
                                             XmNlabelPixmap,bulletIconPixmap,
                                             XmNtopAttachment,XmATTACH_WIDGET,
                                             XmNtopWidget,bulletScoreLabel,
-                                            XmNbottomAttachment,XmATTACH_FORM,
+                                            XmNbottomAttachment,XmATTACH_NONE,
                                             XmNleftAttachment,XmATTACH_WIDGET,
                                             XmNleftWidget,enemyPixmapLabel,
                                             XmNrightAttachment,XmATTACH_WIDGET,
                                             XmNrightWidget,verticalSeparator1,
                                             NULL);
+
+
+/********** Create Relativistic Mass Toggle Button Gadget **********/
+
+string=XmStringCreateLocalized("Relativistic Mass (Global\n  Maximum Velocity = 0.999c)");
+relativisticMass=XtVaCreateManagedWidget("relativisticMass",
+                                         xmToggleButtonGadgetClass,mainForm,
+                                         XmNbackground,background,
+                                         XmNforeground,foreground,
+                                         XmNmarginRight,35,
+                                         XmNlabelString,string,
+                                         XmNindicatorSize,20,
+                                         XmNset,PlayingField::relativisticMass,
+                                         XmNtopAttachment,XmATTACH_FORM,
+                                         XmNbottomAttachment,XmATTACH_NONE,
+                                         XmNleftAttachment,XmATTACH_WIDGET,
+                                         XmNleftWidget,verticalSeparator1,
+                                         XmNrightAttachment,XmATTACH_NONE,
+                                         NULL);
+XmStringFree(string);
+XtAddCallback(relativisticMass,XmNvalueChangedCallback,ApplyRelativisticMass,this);
+
+
+/********** Create Vertical Separator 2 Gadget **********/
+
+verticalSeparator2=XtVaCreateManagedWidget("verticalSeparator2",
+                                           xmSeparatorGadgetClass,mainForm,
+                                           XmNbackground,background,
+                                           XmNforeground,foreground,
+                                           XmNsensitive,FALSE,
+                                           XmNwidth,14,
+                                           XmNorientation,XmVERTICAL,
+                                           XmNshadowThickness,4,
+                                           XmNtopAttachment,XmATTACH_FORM,
+                                           XmNbottomAttachment,XmATTACH_FORM,
+                                           XmNleftAttachment,XmATTACH_WIDGET,
+                                           XmNleftWidget,relativisticMass,
+                                           XmNrightAttachment,XmATTACH_NONE,
+                                           NULL);
+
+
+/********** Create Horizontal Separator 4 Gadget **********/
+
+horizontalSeparator4=XtVaCreateManagedWidget("horizontalSeparator4",
+                                             xmSeparatorGadgetClass,mainForm,
+                                             XmNbackground,background,
+                                             XmNforeground,foreground,
+                                             XmNsensitive,FALSE,
+                                             XmNheight,20,
+                                             XmNshadowThickness,4,
+                                             XmNtopAttachment,XmATTACH_WIDGET,
+                                             XmNtopWidget,relativisticMass,
+                                             XmNbottomAttachment,XmATTACH_NONE,
+                                             XmNleftAttachment,XmATTACH_WIDGET,
+                                             XmNleftWidget,verticalSeparator1,
+                                             XmNrightAttachment,XmATTACH_WIDGET,
+                                             XmNrightWidget,verticalSeparator2,
+                                             NULL);
 
 
 /********** Create Ship Shape Label Gadget **********/
@@ -1108,30 +1172,14 @@ inline Options::Options(int argc, char** argv): exitFlag(on),
                                          XmNforeground,foreground,
                                          XmNwidth,232,
                                          XmNlabelString,string,
-                                         XmNtopAttachment,XmATTACH_FORM,
+                                         XmNtopAttachment,XmATTACH_WIDGET,
+                                         XmNtopWidget,horizontalSeparator4,
                                          XmNbottomAttachment,XmATTACH_NONE,
                                          XmNleftAttachment,XmATTACH_WIDGET,
                                          XmNleftWidget,verticalSeparator1,
                                          XmNrightAttachment,XmATTACH_NONE,
 	                                       NULL);
   XmStringFree(string);
-
-
-/********** Create Vertical Separator 2 Gadget **********/
-
-  verticalSeparator2=XtVaCreateManagedWidget("verticalSeparator2",xmSeparatorGadgetClass,mainForm,
-                                             XmNbackground,background,
-                                             XmNforeground,foreground,
-                                             XmNsensitive,FALSE,
-                                             XmNwidth,14,
-                                             XmNorientation,XmVERTICAL,
-                                             XmNshadowThickness,4,
-                                             XmNtopAttachment,XmATTACH_FORM,
-                                             XmNbottomAttachment,XmATTACH_FORM,
-                                             XmNleftAttachment,XmATTACH_WIDGET,
-                                             XmNleftWidget,shipShapeLabel,
-                                             XmNrightAttachment,XmATTACH_NONE,
-                                             NULL);
 
 
 /********** Create Ship Shape Row Column Widget **********/
@@ -1510,7 +1558,7 @@ inline Options::Options(int argc, char** argv): exitFlag(on),
                                    XmNmarginRight,81,
                                    XmNlabelString,string,
                                    XmNindicatorSize,20,
-				   XmNset,ShipBulletGroup::autoFire,
+                                   XmNset,ShipBulletGroup::autoFire,
                                    XmNtopAttachment,XmATTACH_WIDGET,
                                    XmNtopWidget,extraShipScoreValue,
                                    XmNbottomAttachment,XmATTACH_NONE,
@@ -1667,7 +1715,7 @@ inline Options::Options(int argc, char** argv): exitFlag(on),
 
 /********** Create Horizontal Separator 4 Gadget **********/
 
-  horizontalSeparator4=XtVaCreateManagedWidget("horizontalSeparator4",xmSeparatorGadgetClass,mainForm,
+  horizontalSeparator5=XtVaCreateManagedWidget("horizontalSeparator5",xmSeparatorGadgetClass,mainForm,
                                                XmNbackground,background,
                                                XmNforeground,foreground,
                                                XmNsensitive,FALSE,
@@ -1692,7 +1740,7 @@ inline Options::Options(int argc, char** argv): exitFlag(on),
                                           XmNforeground,foreground,
                                           XmNlabelString,string,
                                           XmNtopAttachment,XmATTACH_WIDGET,
-                                          XmNtopWidget,horizontalSeparator4,
+                                          XmNtopWidget,horizontalSeparator5,
                                           XmNbottomAttachment,XmATTACH_NONE,
                                           XmNleftAttachment,XmATTACH_WIDGET,
                                           XmNleftWidget,verticalSeparator2,
@@ -1962,7 +2010,7 @@ inline Options::Options(int argc, char** argv): exitFlag(on),
 
 /********** Create Horizontal Separator 5 Gadget **********/
 
-  horizontalSeparator5=XtVaCreateManagedWidget("horizontalSeparator5",xmSeparatorGadgetClass,mainForm,
+  horizontalSeparator6=XtVaCreateManagedWidget("horizontalSeparator6",xmSeparatorGadgetClass,mainForm,
                                                XmNbackground,background,
                                                XmNforeground,foreground,
                                                XmNsensitive,FALSE,
@@ -1987,7 +2035,7 @@ inline Options::Options(int argc, char** argv): exitFlag(on),
                                            XmNmarginTop,5,
                                            XmNlabelString,string,
                                            XmNtopAttachment,XmATTACH_WIDGET,
-                                           XmNtopWidget,horizontalSeparator5,
+                                           XmNtopWidget,horizontalSeparator6,
                                            XmNbottomAttachment,XmATTACH_NONE,
                                            XmNleftAttachment,XmATTACH_WIDGET,
                                            XmNleftWidget,verticalSeparator3,
@@ -2143,7 +2191,7 @@ inline Options::Options(int argc, char** argv): exitFlag(on),
 
 /********** Create Horizontal Separator 6 Gadget **********/
 
-  horizontalSeparator6=XtVaCreateManagedWidget("horizontalSeparator6",xmSeparatorGadgetClass,mainForm,
+  horizontalSeparator7=XtVaCreateManagedWidget("horizontalSeparator7",xmSeparatorGadgetClass,mainForm,
                                                XmNbackground,background,
                                                XmNforeground,foreground,
                                                XmNsensitive,FALSE,
@@ -2167,7 +2215,7 @@ inline Options::Options(int argc, char** argv): exitFlag(on),
                                              XmNforeground,foreground,
                                              XmNlabelString,string,
                                              XmNtopAttachment,XmATTACH_WIDGET,
-                                             XmNtopWidget,horizontalSeparator6,
+                                             XmNtopWidget,horizontalSeparator7,
                                              XmNbottomAttachment,XmATTACH_NONE,
                                              XmNleftAttachment,XmATTACH_WIDGET,
                                              XmNleftWidget,verticalSeparator3,
@@ -2645,7 +2693,8 @@ void Options::ReadOptions()
       filedEnemyBulletDuration,
       filedNumEnemyBullets;
 
-  Boolean filedOpaqueRocks,
+  Boolean filedRelativisticMass,
+          filedOpaqueRocks,
           filedAutoFire,
           filedEnemiesExist;
 
@@ -2654,6 +2703,7 @@ void Options::ReadOptions()
     ifile >>filedUSecondsPerFrame               >>excep
           >>filedGlobalMaxVel                   >>excep
           >>filedUniversalGravitationalConstant >>excep
+          >>filedRelativisticMass               >>excep
           >>filedShipType                       >>excep
           >>filedShipMaxVel                     >>excep
           >>filedShipAccel                      >>excep
@@ -2692,6 +2742,11 @@ void Options::ReadOptions()
 
   if (PlayingField::universalGravitationalConst!=filedUniversalGravitationalConstant)
     AlterUniversalGravitationalConstant(filedUniversalGravitationalConstant);
+
+  if (PlayingField::relativisticMass!=filedRelativisticMass)
+   {XmToggleButtonSetState(relativisticMass,filedRelativisticMass,FALSE);
+    AlterRelativisticMass(filedRelativisticMass);
+   }
 
   switch (filedShipType)
    {default: if (ShipGroup::ship!=&shipGroup.starDestroyer
@@ -2850,6 +2905,7 @@ void Options::WriteOptions()
     ofile <<PlayingField::uSecondsPerFrame            <<excep<<'\n'<<excep
           <<PlayingField::maxLinearVelocity           <<excep<<'\n'<<excep
           <<PlayingField::universalGravitationalConst <<excep<<'\n'<<excep
+          <<PlayingField::relativisticMass            <<excep<<'\n'<<excep
           <<(ShipGroup::ship==&shipGroup.NCC1701D
                ? 2
 	             : ShipGroup::ship==&shipGroup.NCC1701A
@@ -2920,6 +2976,11 @@ void Options::ResetDefaults(Widget,XtPointer clientData,XtPointer)
 
   if (PlayingField::universalGravitationalConst!=defaultUniversalGravitationalConstant)
     ((Options*)clientData)->AlterUniversalGravitationalConstant(defaultUniversalGravitationalConstant);
+
+  if (PlayingField::relativisticMass!=defaultRelativisticMass)
+   {XmToggleButtonSetState(((Options*)clientData)->relativisticMass,defaultRelativisticMass,FALSE);
+    ((Options*)clientData)->AlterRelativisticMass(defaultRelativisticMass);
+   }
 
   if (ShipGroup::ship!=&shipGroup.starDestroyer||ShipGroup::thrust!=&shipGroup.starDestroyerThrust)
    {XmToggleButtonSetState(((Options*)clientData)->shipNCC1701A,FALSE,FALSE);
@@ -3082,6 +3143,10 @@ void Options::ApplyUniversalGravitationalConstant(Widget,XtPointer clientData,Xt
    {((Options*)clientData)->AlterUniversalGravitationalConstant(((Options*)clientData)->floatExitValue);
     ((Options*)clientData)->SetWidgetFields();
    }
+ }
+
+void Options::ApplyRelativisticMass(Widget widget,XtPointer clientData,XtPointer)
+ {((Options*)clientData)->AlterRelativisticMass(XmToggleButtonGetState(widget));
  }
 
 void Options::ApplyStarDestroyerShipShape(Widget,XtPointer clientData,XtPointer)
@@ -3401,6 +3466,10 @@ void Options::AlterUniversalGravitationalConstant(const double newUniversalGravi
   XtSetSensitive(enemyMaxVelValue,PlayingField::enemiesExist&&!PlayingField::universalGravitationalConst);
   XtSetSensitive(enemyBulletVelLabel,PlayingField::enemiesExist&&!PlayingField::universalGravitationalConst);
   XtSetSensitive(enemyBulletVelValue,PlayingField::enemiesExist&&!PlayingField::universalGravitationalConst);
+ }
+
+void Options::AlterRelativisticMass(const Options::Boolean relMass)
+ {PlayingField::relativisticMass=relMass;
  }
 
 void Options::AlterShipShape(Ship& newip,Thrust& newrust)

@@ -58,7 +58,8 @@ class PlayingField
     static double maxLinearVelocity,
                   universalGravitationalConst;
 
-    static Boolean enemiesExist;
+    static Boolean enemiesExist,
+                   relativisticMass;
 
     static const Box playArea;
 
@@ -101,7 +102,8 @@ int PlayingField::uSecondsPerFrame=62500,
 double PlayingField::maxLinearVelocity=28,
        PlayingField::universalGravitationalConst=0;
 
-PlayingField::Boolean PlayingField::enemiesExist=PlayingField::on;
+PlayingField::Boolean PlayingField::enemiesExist=PlayingField::on,
+                      PlayingField::relativisticMass=PlayingField::off;
 
 const Box PlayingField::playArea(640,512,Vector2d(320+2*ROCK::scale,256+2*ROCK::scale));
 
@@ -209,17 +211,18 @@ inline Vector2d PlayingField::CalcGravityAcceleration(const MovableObject* const
          distMag,
          radiusAverage=.5*(obj1->ObjectRotator().Radius()+obj2->ObjectRotator().Radius()),
          radiusAverageSquared=radiusAverage*radiusAverage,
-         c=maxLinearVelocity*1.01,
+         c=maxLinearVelocity*1.001,
          cSquared=c*c,
-         relativisticMass=obj2->ObjectRotator().Area()*sqrt(cSquared/(cSquared-obj2->ObjectLiner().VelocityMagnitude()
-                                                                              *obj2->ObjectLiner().VelocityMagnitude())),
+         mass=relativisticMass ? obj2->ObjectRotator().Area()*sqrt(cSquared/(cSquared-obj2->ObjectLiner().VelocityMagnitude()
+                                                                                      *obj2->ObjectLiner().VelocityMagnitude()))
+                               : obj2->ObjectRotator().Area(),
          uSecondPerFrameRatio;
   return distMagSquared ? (distMag=sqrt(distMagSquared),
                            uSecondPerFrameRatio=uSecondsPerFrame/6.25E4, // Scale the acceleration to the currwnt frame rate of the game. 16 fps is baseline.
                            (dist/distMag)*universalGravitationalConst
-                           *(distMag<radiusAverage ? relativisticMass*distMag
+                           *(distMag<radiusAverage ? mass*distMag
                                                      /(radiusAverageSquared*radiusAverage) // Overlapping object gravitational acceleration
-                                                   : relativisticMass/distMagSquared) // Non-overlapping object gravitational accelaration
+                                                   : mass/distMagSquared) // Non-overlapping object gravitational accelaration
                            *uSecondPerFrameRatio*uSecondPerFrameRatio)
                         : Vector2d();
  }
