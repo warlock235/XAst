@@ -1492,7 +1492,7 @@ horizontalSeparator4=XtVaCreateManagedWidget("horizontalSeparator4",
                                             XmNmaximum,maxInitialShips,
                                             XmNorientation,XmHORIZONTAL,
                                             XmNshowValue,TRUE,
-					    XmNvalue,PlayingField::initialShips,
+                                            XmNvalue,PlayingField::initialShips,
                                             XmNtopAttachment,XmATTACH_WIDGET,
                                             XmNtopWidget,initialShipsLabel,
                                             XmNbottomAttachment,XmATTACH_NONE,
@@ -2439,7 +2439,7 @@ inline Options::~Options()
   XFreePixmap(stage.display,starDestroyerNotSelectedPixmap);
   XFreePixmap(stage.display,starDestroyerSelectedPixmap);
   XmFontListFree(fontList);
-  /*XtDestroyApplicationContext(appContext);*/
+  /*XtDestroyApplicationContext(appContext);*/ //Apparently this operation is implicit in Xorg implementation
  }
 
 void Options::CreateScoringIconPixmaps(const unsigned char* const bitmapData,
@@ -3147,6 +3147,7 @@ void Options::ApplyUniversalGravitationalConstant(Widget,XtPointer clientData,Xt
 
 void Options::ApplyRelativisticMass(Widget widget,XtPointer clientData,XtPointer)
  {((Options*)clientData)->AlterRelativisticMass(XmToggleButtonGetState(widget));
+  ((Options*)clientData)->SetWidgetFields();
  }
 
 void Options::ApplyStarDestroyerShipShape(Widget,XtPointer clientData,XtPointer)
@@ -3659,7 +3660,8 @@ void Options::AlterNumEnemyBullets(const int newNumBullets)
  }
 
 void Options::SetWidgetFields()
- {SetTextWidget(globalMaxVelValue,
+ {int localWeightTotal=weightTotal;
+  SetTextWidget(globalMaxVelValue,
                 MakeString(1E6*PlayingField::maxLinearVelocity/PlayingField::uSecondsPerFrame));
   double scoreFactor=weightGlobalMaxVel
                      *(PlayingField::maxLinearVelocity-minGlobalMaxVel)
@@ -3667,7 +3669,14 @@ void Options::SetWidgetFields()
 
   SetTextWidget(universalGravitationalConstantValue,
                 MakeString(PlayingField::universalGravitationalConst));
-  scoreFactor+=weightUniversalGravitationalConstant
+  int localWeightUniversalGravitationalConstant;
+  if (PlayingField::universalGravitationalConst&&PlayingField::relativisticMass)
+   {localWeightUniversalGravitationalConstant=weightUniversalGravitationalConstant*3.4;
+    localWeightTotal+=localWeightUniversalGravitationalConstant-weightUniversalGravitationalConstant;
+   }
+  else
+    localWeightUniversalGravitationalConstant=weightUniversalGravitationalConstant;
+  scoreFactor+=localWeightUniversalGravitationalConstant
                *(PlayingField::universalGravitationalConst-minUniversalGravitationalConstant)
                /(defaultUniversalGravitationalConstant-minUniversalGravitationalConstant);
 
@@ -3811,7 +3820,7 @@ void Options::SetWidgetFields()
                  /(defaultNumEnemyBullets-minNumEnemyBullets);
    }
 
-  scoreFactor/=weightTotal;
+  scoreFactor/=localWeightTotal;
 
   if (!(ROCK::score=defaultROCKScore*scoreFactor+.5)) ROCK::score=1;
   if (!(ROck::score=defaultROckScore*scoreFactor+.5)) ROck::score=1;
