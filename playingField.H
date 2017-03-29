@@ -204,8 +204,8 @@ inline void PlayingField::DrawGame()
                  playArea.Width(),playArea.Height());
  }
 
-inline Vector2d PlayingField::CalcGravityAcceleration(const MovableObject* const obj1,
-                                                      const MovableObject* const obj2)
+ inline Vector2d PlayingField::CalcGravityAcceleration(const MovableObject* const obj1,
+                                                       const MovableObject* const obj2)
  {Vector2d dist=obj2->CurrentBox().Center()-obj1->CurrentBox().Center();
   double distMagSquared=dist.MagnitudeSquared(),
          distMag,
