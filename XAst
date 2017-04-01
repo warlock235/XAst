@@ -1,4 +1,0 @@
-#!/bin/csh -f
-cd ~warlock/score
-/local/XAsteroids/XAVisualAge/XAsteroids $1
-exit
