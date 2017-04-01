@@ -68,7 +68,7 @@ inline Score::Score(): currentScore(0),
  {passwd* userData=getpwuid(geteuid());
   strncpy(currentName,userData->pw_name,8)[8]='\0';
   char* cwd=getcwd(new char[3000],3000);
-  int fnLen1=strlen("/local/XAsteroids/hiScore.data"),
+  int fnLen1=strlen("/Volumes/XAsteroids/XAst/hiScore.data"),
       fnLen2=strlen(userData->pw_dir)
              +strlen("/XAsteroids/hiScore.data"),
       fnLen3=strlen(cwd)
@@ -82,7 +82,7 @@ inline Score::Score(): currentScore(0),
                                     : fnLen3)
                      ? fnLen1
 		                 : fnLen2)+1];
-  strcpy(fileName,"/local/XAsteroids/hiScore.data");
+  strcpy(fileName,"/Volumes/XAsteroids/XAst/hiScore.data");
   ifstream file(fileName,ios::in);
   if (!file)
    {file.open(strcat(strcpy(fileName,userData->pw_dir),

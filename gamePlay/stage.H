@@ -9,10 +9,10 @@
 #include<signal.h>
 #include<time.h>
 #include<X11/Xlib.h>
-#include"button.H"
+#include"options/button.H"
 #include"score.H"
 #include"shipYard.H"
-#include"starDestroyerIcon.xbm"
+#include"../bitmaps/starDestroyerIcon.xbm"
 
 // This code was originally written where 0<=RAND_MAX<=2^16-1. To prevent overflow issues, a 16 bit random function is used since rand()
 //   returns a full 32 bit value. This provides a single convenient place to change the game random number generator to anything desired.
@@ -101,7 +101,7 @@ class Stage
 extern Stage stage;
 
 #include"playingField.H"
-#include"shipGroup.H"
+#include"../objects/ships/shipGroup.H"
 extern PlayingField playingField;
 
 XColor Stage::windowBg={0,

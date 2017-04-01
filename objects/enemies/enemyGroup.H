@@ -3,38 +3,38 @@
 
 #include<stdlib.h>
 #include<X11/Xlib.h>
-#include"vector2d.H"
-#include"box.H"
-#include"rotatorDisplayData.H"
-#include"rotator.H"
-#include"frameList.H"
-#include"frameTimer.H"
-#include"movableObject.H"
-#include"intersection2d.H"
-#include"explosion.H"
-#include"stage.H"
-#include"ENEMYDecor.xbm"
-#include"enemyDecor.xbm"
+#include"../../utilities/vector2d.H"
+#include"../../utilities/box.H"
+#include"../../utilities/pixmaps/rotated/rotatorDisplayData.H"
+#include"../../utilities/pixmaps/rotated/rotator.H"
+#include"../../utilities/frames/frameList.H"
+#include"../../utilities/frames/frameTimer.H"
+#include"../movableObject.H"
+#include"../../utilities/intersection2d.H"
+#include"../explosions/explosion.H"
+#include"../../gamePlay/stage.H"
+#include"../../bitmaps/ENEMYDecor.xbm"
+#include"../../bitmaps/enemyDecor.xbm"
 
 class EnemyGroup;
 class Enemy: public MovableObject
  {friend class EnemyGroup;
   public:
- 
+
     Enemy(const Vector2d* const vectors, const int numVecs, XColor& color,
           const unsigned char* const decor, const int decorWidth, const int decorHeight,
-          const int score); 
+          const int score);
 
     virtual Rotator& ObjectRotator();
     virtual void MissScript(Intersector&, const double createTime,
                                           const double existTime)=0;
     virtual void HitScript(Intersector&, const double createTime,
                                           const double existTime,
-                                          const Vector2d& intersectPoint); 
+                                          const Vector2d& intersectPoint);
   protected:
     NonRotVectorData graphic;
     Rotator rotator;
-    
+
   private:
     int score;
  };
@@ -57,7 +57,7 @@ class ENEMY: public Enemy
   private:
     static const int shiftRate,
                      shiftSize;
-    
+
     static const Vector2d vectors[10];
  };
 
@@ -76,7 +76,7 @@ class enemy: public Enemy
     static int score;
 
     static XColor color;
-   
+
   private:
     static const Vector2d vectors[8];
  };
@@ -92,7 +92,7 @@ class EnemyGroup
  {friend class Enemy;
   friend class ENEMY;
   friend class enemy;
-  public: 
+  public:
 
     typedef int Boolean;
     enum {off, on};
@@ -109,7 +109,7 @@ class EnemyGroup
     inline void ResetVelocityLimits(const double newVelLimit);
     inline void ResetScore(const double scoreFactor);
 
-    static int minimumFrames; 
+    static int minimumFrames;
 
 
   private:
@@ -119,18 +119,18 @@ class EnemyGroup
     static const int scoreThreshold,
                      scoreLevelIncrement,
                      ENEMYFrequency1,
-                     ENEMYFrequency2; 
+                     ENEMYFrequency2;
 
     ENEMY ENEMy;
     enemy enemY;
-    EnemyExplosion explosion; 
+    EnemyExplosion explosion;
     FrameTimer frameTimer;
  };
 
 extern EnemyGroup enemyGroup;
 
 #include"enemyBulletGroup.H"
-#include"playingField.H"
+#include"../../gamePlay/playingField.H"
 
 inline Enemy::Enemy(const Vector2d* const vectors, const int numVecs, XColor& color,
                     const unsigned char* const decor, const int decorWidth, const int decorHeight,
@@ -150,7 +150,7 @@ Rotator& Enemy::ObjectRotator()
 
 void Enemy::HitScript(Intersector& intersector, const double createTime,
                         const double existTime,
-                        const Vector2d& intersectPoint) 
+                        const Vector2d& intersectPoint)
  {intersector.RemoveNonPermeable(this);
   enemyGroup.explosion.CurrentBox().MoveBox(ObjectLiner()
                                             .Move(OldBox().Center(),
@@ -159,7 +159,7 @@ void Enemy::HitScript(Intersector& intersector, const double createTime,
   enemyGroup.explosion.ObjectLiner().Velocity()=ObjectLiner().Velocity();
   enemyGroup.explosion.frameList.Reset();
   enemyGroup.explosion.frameTimer.Reset();
-  intersector.AddPermeable(&enemyGroup.explosion,createTime+existTime); 
+  intersector.AddPermeable(&enemyGroup.explosion,createTime+existTime);
   if (playingField.lastHitFromAlly)
    {::score.CurrentScore()+=score;
     playingField.lastHitFromAlly=PlayingField::off;
@@ -168,7 +168,7 @@ void Enemy::HitScript(Intersector& intersector, const double createTime,
     if (playingField.lastHitScore)
       playingField.lastHitScore=0;
     else
-      playingField.lastHitScore=score; 
+      playingField.lastHitScore=score;
  }
 
 int ENEMY::score=250;
@@ -188,7 +188,7 @@ const Vector2d ENEMY::vectors[10]={Vector2d(2,-5),
                                    Vector2d(-15,1),
                                    Vector2d(-6,-2),
                                    Vector2d(-5,-2),
-                                   Vector2d(-2,-5)}; 
+                                   Vector2d(-2,-5)};
 
 XColor ENEMY::color={0,
                      39064,//152
@@ -219,7 +219,7 @@ void ENEMY::MissScript(Intersector& intersector, const double createTime,
       if (random<<31)
         velocity=Vector2d(ObjectLiner().XVelocity(),
                           ObjectLiner().YVelocity()-shiftSize);
-      else 
+      else
         velocity=Vector2d(ObjectLiner().XVelocity(),
                           ObjectLiner().YVelocity()+shiftSize);
       ObjectLiner().Velocity()=ObjectLiner().VelocityMagnitude()
@@ -239,7 +239,7 @@ void ENEMY::MissScript(Intersector& intersector, const double createTime,
                           .NorthWestCorner().x+.5,
               CurrentBox().NorthWestCorner().y+.5);
    }
- }  
+ }
 
 int enemy::score=1000;
 
@@ -279,7 +279,7 @@ void enemy::MissScript(Intersector& intersector, const double createTime,
    {enemyBulletGroup.Fire(intersector,createTime+existTime,*this);
     if (!shipGroup.hyper.hyperspacing)
      {Vector2d TargetDeltaPos=shipGroup.ship->CurrentBox().Center()
-                              -CurrentBox().Center(); 
+                              -CurrentBox().Center();
       ObjectLiner().Velocity()=ObjectLiner().VelocityMagnitude()
                                *TargetDeltaPos/TargetDeltaPos.Magnitude();
      }
@@ -297,7 +297,7 @@ void enemy::MissScript(Intersector& intersector, const double createTime,
                           .NorthWestCorner().x+.5,
               CurrentBox().NorthWestCorner().y+.5);
    }
- }  
+ }
 
 void EnemyExplosion::MissScript(Intersector& intersector, const double createTime,
                     	                 const double existTime)
@@ -307,21 +307,21 @@ void EnemyExplosion::MissScript(Intersector& intersector, const double createTim
      {intersector.RemovePermeable(this);
       enemyGroup.enemyInactive=EnemyGroup::on;
      }
-    else 
-     {frameList.UpdateFrameNumber();    
+    else
+     {frameList.UpdateFrameNumber();
       Explosion::DisplayFrame();
      }
    }
   else
       Explosion::DisplayFrame();
- } 
+ }
 
 int EnemyGroup::minimumFrames=25;
 
 const int EnemyGroup::scoreThreshold=1800,
           EnemyGroup::scoreLevelIncrement=500,
           EnemyGroup::ENEMYFrequency1=RAND_MAX_16*70/100,
-          EnemyGroup::ENEMYFrequency2=RAND_MAX_16-ENEMYFrequency1; 
+          EnemyGroup::ENEMYFrequency2=RAND_MAX_16-ENEMYFrequency1;
 
 inline EnemyGroup::EnemyGroup(): enemyInactive(on),
                                    frameTimer(minimumFrames)
@@ -332,7 +332,7 @@ inline EnemyGroup::Boolean EnemyGroup::Overlap(const Box& overlapBox)
  {playingField.nonPermeableList.SetCurrentAtHead();
   {for (int i=0; i<playingField.nonPermeableList.GetNumItems(); ++i)
     {if (Intersect(playingField.nonPermeableList.GetData()->CurrentBox(),
-                   overlapBox)) 
+                   overlapBox))
        return on;
      playingField.nonPermeableList.Next();
     }
@@ -355,19 +355,19 @@ inline void EnemyGroup::NewEnemy(const int level)
    {double velMagnitude=2*ENEMY::maxVelocity*gary_rand::rand_16()/RAND_MAX_16-ENEMY::maxVelocity;
    if (fabs(velMagnitude)<ENEMY::minVelocity)
        velMagnitude=velMagnitude<0 ? -ENEMY::minVelocity
-	                           : ENEMY::minVelocity; 
+	                           : ENEMY::minVelocity;
     if (Vector2d(ENEMy.ObjectLiner().Velocity()=Vector2d(velMagnitude)).x<0)
       ENEMy.CurrentBox().SetBox(Vector2d(PlayingField::playArea.EastSide()+ENEMy.rotator.Radius(),
                                          (PlayingField::playArea.Height()
                                           -2*ENEMy.rotator.Radius())*gary_rand::rand_16()/(RAND_MAX_16+1)
-                                         +ENEMy.rotator.Radius()   
+                                         +ENEMy.rotator.Radius()
                                          +PlayingField::playArea.NorthSide()),
 			        ENEMy.rotator.Radius());
     else
       ENEMy.CurrentBox().SetBox(Vector2d(PlayingField::playArea.WestSide()-ENEMy.rotator.Radius(),
                                          (PlayingField::playArea.Height()
                                           -2*ENEMy.rotator.Radius())*gary_rand::rand_16()/(RAND_MAX_16+1)
-                                         +ENEMy.rotator.Radius()   
+                                         +ENEMy.rotator.Radius()
                                          +PlayingField::playArea.NorthSide()),
 			        ENEMy.rotator.Radius());
     if (Overlap(ENEMy.CurrentBox()))
@@ -378,18 +378,18 @@ inline void EnemyGroup::NewEnemy(const int level)
    {double velMagnitude=2*enemY.maxVelocity*gary_rand::rand_16()/RAND_MAX_16-enemY.maxVelocity;
    if (fabs(velMagnitude)<enemy::minVelocity)
        velMagnitude=velMagnitude<0 ? -enemy::minVelocity
-	                           : enemy::minVelocity; 
+	                           : enemy::minVelocity;
     if (Vector2d(enemY.ObjectLiner().Velocity()=Vector2d(velMagnitude)).x<0)
       enemY.CurrentBox().SetBox(Vector2d(PlayingField::playArea.EastSide()+enemY.rotator.Radius(),
                                          (PlayingField::playArea.Height()
                                           -2*enemY.rotator.Radius())*gary_rand::rand_16()/(RAND_MAX_16+1)
-                                         +enemY.rotator.Radius()   
+                                         +enemY.rotator.Radius()
                                          +PlayingField::playArea.NorthSide()),
                                 enemY.rotator.Radius());
       enemY.CurrentBox().SetBox(Vector2d(PlayingField::playArea.WestSide()-enemY.rotator.Radius(),
                                           (PlayingField::playArea.Height()
                                            -2*enemY.rotator.Radius())*gary_rand::rand_16()/(RAND_MAX_16+1)
-                                          +enemY.rotator.Radius()   
+                                          +enemY.rotator.Radius()
                                           +PlayingField::playArea.NorthSide()),
                                  enemY.rotator.Radius());
     if (Overlap(enemY.CurrentBox()))
@@ -427,7 +427,7 @@ inline void EnemyGroup::ResetENEMYMinVelocity(const double newMinVelocity)
   if (explosion.ObjectLiner().VelocityMagnitude()<newMinVelocity)
     explosion.ObjectLiner().Velocity()=newMinVelocity
                                        *explosion.ObjectLiner().Velocity()
-                                       /explosion.ObjectLiner().VelocityMagnitude();  
+                                       /explosion.ObjectLiner().VelocityMagnitude();
  }
 
 inline void EnemyGroup::ResetENEMYMaxVelocity(const double newMaxVelocity)
@@ -438,29 +438,29 @@ inline void EnemyGroup::ResetENEMYMaxVelocity(const double newMaxVelocity)
   if (explosion.ObjectLiner().VelocityMagnitude()>newMaxVelocity)
     explosion.ObjectLiner().Velocity()=newMaxVelocity
                                        *explosion.ObjectLiner().Velocity()
-                                       /explosion.ObjectLiner().VelocityMagnitude();  
+                                       /explosion.ObjectLiner().VelocityMagnitude();
  }
 
 inline void EnemyGroup::ResetenemyMinVelocity(const double newMinVelocity)
  {if (enemY.ObjectLiner().VelocityMagnitude()<newMinVelocity)
     enemY.ObjectLiner().Velocity()=newMinVelocity
                                    *enemY.ObjectLiner().Velocity()
-                                   /enemY.ObjectLiner().VelocityMagnitude();  
+                                   /enemY.ObjectLiner().VelocityMagnitude();
   if (explosion.ObjectLiner().VelocityMagnitude()<newMinVelocity)
     explosion.ObjectLiner().Velocity()=newMinVelocity
                                        *explosion.ObjectLiner().Velocity()
-                                       /explosion.ObjectLiner().VelocityMagnitude();  
+                                       /explosion.ObjectLiner().VelocityMagnitude();
  }
 
 inline void EnemyGroup::ResetenemyMaxVelocity(const double newMaxVelocity)
  {if (enemY.ObjectLiner().VelocityMagnitude()>newMaxVelocity)
     enemY.ObjectLiner().Velocity()=newMaxVelocity
                                    *enemY.ObjectLiner().Velocity()
-                                   /enemY.ObjectLiner().VelocityMagnitude();  
+                                   /enemY.ObjectLiner().VelocityMagnitude();
   if (explosion.ObjectLiner().VelocityMagnitude()<newMaxVelocity)
     explosion.ObjectLiner().Velocity()=newMaxVelocity
                                        *explosion.ObjectLiner().Velocity()
-                                       /explosion.ObjectLiner().VelocityMagnitude();  
+                                       /explosion.ObjectLiner().VelocityMagnitude();
  }
 
 inline void EnemyGroup::ResetVelocityLimits(const double newVelLimit)

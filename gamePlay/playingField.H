@@ -1,10 +1,10 @@
 #include"stage.H"
-#include"options.H"
-#include"shipBulletGroup.H"
-#include"shipGroup.H"
-#include"enemyBulletGroup.H"
-#include"enemyGroup.H"
-#include"rockGroup.H"
+#include"options/options.H"
+#include"../objects/ships/shipBulletGroup.H"
+#include"../objects/ships/shipGroup.H"
+#include"../objects/enemies/enemyBulletGroup.H"
+#include"../objects/enemies/enemyGroup.H"
+#include"../objects/rocks/rockGroup.H"
 
 #ifndef _PLAYINGFIELD_H
 #define _PLAYINGFIELD_H
@@ -17,11 +17,11 @@
 #include<sys/time.h>
 #include<X11/Xlib.h>
 #include<X11/Xutil.h>
-#include"vector2d.H"
-#include"box.H"
-#include"linkedArray.H"
-#include"movableObject.H"
-#include"intersection2d.H"
+#include"../utilities/vector2d.H"
+#include"../utilities/box.H"
+#include"../utilities/linkedArray.H"
+#include"../objects/movableObject.H"
+#include"../utilities/intersection2d.H"
 
 class PlayingField
  {friend class Options;

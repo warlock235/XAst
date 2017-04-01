@@ -3,11 +3,11 @@
 
 #include<X11/Xlib.h>
 #include<new>
-#include"stage.H"
-#include"compositePixmap.H"
-#include"explosionEdge.xbm"
-#include"explosionMiddle.xbm"
-#include"explosionCenter.xbm"
+#include"../../gamePlay/stage.H"
+#include"../../utilities/pixmaps/composite/compositePixmap.H"
+#include"../../bitmaps/explosionEdge.xbm"
+#include"../../bitmaps/explosionMiddle.xbm"
+#include"../../bitmaps/explosionCenter.xbm"
 
 class ExplosionGraphic
  {public:

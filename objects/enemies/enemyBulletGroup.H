@@ -1,17 +1,17 @@
 #include<stdlib.h>
 #include<X11/Xlib.h>
-#include"vector2d.H"
-#include"box.H"
-#include"rotatorDisplayData.H"
-#include"rotator.H"
-#include"frameList.H"
-#include"frameTimer.H"
-#include"movableObject.H"
-#include"intersection2d.H"
-#include"bullet.H"
+#include"../../utilities/vector2d.H"
+#include"../../utilities/box.H"
+#include"../../utilities/pixmaps/rotated/rotatorDisplayData.H"
+#include"../../utilities/pixmaps/rotated/rotator.H"
+#include"../../utilities/frames/frameList.H"
+#include"../../utilities/frames/frameTimer.H"
+#include"../movableObject.H"
+#include"../../utilities/intersection2d.H"
+#include"../bullet.H"
 #include"enemyGroup.H"
-#include"stage.H"
-#include"enemyBulletDecor.xbm"
+#include"../../gamePlay/stage.H"
+#include"../../bitmaps/enemyBulletDecor.xbm"
 
 #ifndef _ENEMYBULLETGROUP_H
 #define _ENEMYBULLETGROUP_H
@@ -92,7 +92,7 @@ class EnemyBulletGroup
 
 extern EnemyBulletGroup enemyBulletGroup;
 
-#include"playingField.H"
+#include"../../gamePlay/playingField.H"
 
 double EnemyBullet::velocity=.5*PlayingField::maxLinearVelocity;
 

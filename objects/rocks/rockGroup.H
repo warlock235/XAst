@@ -2,23 +2,23 @@ class Rock;
 #include<stdlib.h>
 #include<math.h>
 #include<X11/Xlib.h>
-#include"vector2d.H"
-#include"rotatorDisplayData.H"
-#include"rotator.H"
+#include"../../utilities/vector2d.H"
+#include"../../utilities/pixmaps/rotated/rotatorDisplayData.H"
+#include"../../utilities/pixmaps/rotated/rotator.H"
 #include"spawner.H"
-#include"movableObject.H"
-#include"intersection2d.H"
-#include"stage.H"
-#include"shipGroup.H"
+#include"../movableObject.H"
+#include"../../utilities/intersection2d.H"
+#include"../../gamePlay/stage.H"
+#include"../ships/shipGroup.H"
 
 #ifdef _CORP_LOGO_
-#include"ROCKDecor1.xbm"
-#include"ROCKDecor2.xbm"
-#include"ROCKDecor3.xbm"
+#include"../../bitmaps/ROCKDecor1.xbm"
+#include"../../bitmaps/ROCKDecor2.xbm"
+#include"../../bitmaps/ROCKDecor3.xbm"
 #else
-#include"eightball.xbm"
-#include"peace.xbm"
-#include"yinyang.xbm"
+#include"../../bitmaps/eightball.xbm"
+#include"../../bitmaps/peace.xbm"
+#include"../../bitmaps/yinyang.xbm"
 #endif
 
 #ifndef _ROCKGROUP_H
@@ -149,7 +149,7 @@ class RockGroup
 
 extern RockGroup rockGroup;
 
-#include"playingField.H"
+#include"../../gamePlay/playingField.H"
 
 inline Rock::Rock(const int s, const double scale): rotator(PlayingField::maxLinearVelocity/(4*scale)),
                                                     score(s)

@@ -2,13 +2,13 @@
 #define _EXPLOSION_H
 
 #include<X11/Xlib.h>
-#include"vector2d.H"
-#include"box.H"
-#include"frameList.H"
-#include"frameTimer.H"
-#include"movableObject.H"
-#include"intersection2d.H"
-#include"explosionGraphic.H"
+#include"../../utilities/vector2d.H"
+#include"../../utilities/box.H"
+#include"../../utilities/frames/frameList.H"
+#include"../../utilities/frames/frameTimer.H"
+#include"../movableObject.H"
+#include"../../utilities/intersection2d.H"
+#include"../explosions/explosionGraphic.H"
 
 class Explosion: public MovableObject
  {public:
@@ -25,7 +25,7 @@ class Explosion: public MovableObject
 
  };
 
-#include"playingField.H"
+#include"../../gamePlay/playingField.H"
 
 inline Explosion::Explosion(): frameList(explosionGraphic.frames,
                                          ExplosionGraphic::numFrames,

@@ -1,17 +1,17 @@
 #include<stdlib.h>
 #include<X11/Xlib.h>
-#include"vector2d.H"
-#include"box.H"
-#include"rotatorDisplayData.H"
-#include"rotator.H"
-#include"frameList.H"
-#include"frameTimer.H"
-#include"movableObject.H"
-#include"intersection2d.H"
-#include"bullet.H"
-#include"explosion.H"
-#include"stage.H"
-#include"shipBulletDecor.xbm"
+#include"../../utilities/vector2d.H"
+#include"../../utilities/box.H"
+#include"../../utilities/pixmaps/rotated/rotatorDisplayData.H"
+#include"../../utilities/pixmaps/rotated/rotator.H"
+#include"../../utilities/frames/frameList.H"
+#include"../../utilities/frames/frameTimer.H"
+#include"../movableObject.H"
+#include"../../utilities/intersection2d.H"
+#include"../bullet.H"
+#include"../explosions/explosion.H"
+#include"../../gamePlay/stage.H"
+#include"../../bitmaps/shipBulletDecor.xbm"
 
 #ifndef _SHIPBULLETGROUP_H
 #define _SHIPBULLETGROUP_H
@@ -108,7 +108,7 @@ class ShipBulletGroup
 
 extern ShipBulletGroup shipBulletGroup;
 
-#include"playingField.H"
+#include"../../gamePlay/playingField.H"
 
 int ShipBullet::numFrames=28;
 

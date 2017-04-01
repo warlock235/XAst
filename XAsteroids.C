@@ -1,15 +1,15 @@
 #include<stdlib.h>
 #include<iostream>
-#include"stage.H"
-#include"score.H"
-#include"shipYard.H"
-#include"explosionGraphic.H"
-#include"shipGroup.H"
-#include"shipBulletGroup.H"
-#include"rockGroup.H"
-#include"enemyGroup.H"
-#include"enemyBulletGroup.H"
-#include"playingField.H"
+#include"gamePlay/stage.H"
+#include"gamePlay/score.H"
+#include"gamePlay/shipYard.H"
+#include"objects/explosions/explosionGraphic.H"
+#include"objects/ships/shipGroup.H"
+#include"objects/ships/shipBulletGroup.H"
+#include"objects/rocks/rockGroup.H"
+#include"objects/enemies/enemyGroup.H"
+#include"objects/enemies/enemyBulletGroup.H"
+#include"gamePlay/playingField.H"
 Stage stage;
 Button button(stage.display,stage.window,
               "Options",stage.buttonInfo,

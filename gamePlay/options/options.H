@@ -22,12 +22,12 @@
 #include<Xm/FileSB.h>
 #include<Xm/MessageB.h>
 
-#include"ROCKScoringIcon.xbm"
-#include"ROckScoringIcon.xbm"
-#include"rockScoringIcon.xbm"
-#include"ENEMYScoringIcon.xbm"
-#include"enemyScoringIcon.xbm"
-#include"bulletScoringIcon.xbm"
+#include"../../bitmaps/ROCKScoringIcon.xbm"
+#include"../../bitmaps/ROckScoringIcon.xbm"
+#include"../../bitmaps/rockScoringIcon.xbm"
+#include"../../bitmaps/ENEMYScoringIcon.xbm"
+#include"../../bitmaps/enemyScoringIcon.xbm"
+#include"../../bitmaps/bulletScoringIcon.xbm"
 
 #ifndef _OPTIONS_H
 #define _OPTIONS_H
@@ -379,14 +379,14 @@ class Options
     IOIndicator IOState;
  };
 
-#include"stage.H"
-#include"shipYard.H"
-#include"shipBulletGroup.H"
-#include"shipGroup.H"
-#include"enemyGroup.H"
-#include"enemyBulletGroup.H"
-#include"rockGroup.H"
-#include"playingField.H"
+#include"../stage.H"
+#include"../shipYard.H"
+#include"../../objects/ships/shipBulletGroup.H"
+#include"../../objects/ships/shipGroup.H"
+#include"../../objects/enemies/enemyGroup.H"
+#include"../../objects/enemies/enemyBulletGroup.H"
+#include"../../objects/rocks/rockGroup.H"
+#include"../playingField.H"
 
 const double Options::defaultGlobalMaxVel=PlayingField::maxLinearVelocity,
              Options::minGlobalMaxVel=0,
@@ -2337,7 +2337,7 @@ horizontalSeparator4=XtVaCreateManagedWidget("horizontalSeparator4",
   XtSetArg(args[n],XmNwidth,600); ++n;
   XtSetArg(args[n],XmNheight,400); ++n;
   XtSetArg(args[n],XmNresizePolicy,XmRESIZE_GROW); ++n;
-  string=XmStringCreateLocalized("*.XAstOpt");
+  string=XmStringCreateLocalized("XAstOpts/*.XAstOpt");
   XtSetArg(args[n],XmNdirMask,string); ++n;
   fileSelectionDialog=XmCreateFileSelectionDialog(mainForm,"fileSelectionDialog",args,n);
   XmStringFree(string);

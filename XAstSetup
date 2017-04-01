@@ -1,8 +1,7 @@
 #!/bin/bash
 
 mkdir -p ~/fonts
-cp *.pcf.Z ~/fonts
+cp fonts/*.pcf.Z ~/fonts
 mkfontdir ~/fonts
 xset +fp ~/fonts
 xset fp rehash
-

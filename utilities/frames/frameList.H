@@ -2,7 +2,7 @@
 #define _FRAMELIST_H
 
 #include<X11/Xlib.h>
-#include"compositePixmap.H"
+#include"../pixmaps/composite/compositePixmap.H"
 
 
 class FrameList

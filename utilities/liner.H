@@ -266,5 +266,5 @@ inline Liner& Liner::UpdateVelocity(const double time)
  {velocity=velocity.linerVec+acceleration.linerVec*time;
   return *this;
  }
- 
+
 #endif

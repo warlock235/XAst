@@ -9,7 +9,7 @@ class Intersector;
 #include"vector2d.H"
 #include"box.H"
 #include"liner.H"
-#include"movableObject.H"
+#include"../objects/movableObject.H"
 
 class IntersectorItem
  {typedef int Boolean;

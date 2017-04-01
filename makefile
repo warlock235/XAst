@@ -1,18 +1,18 @@
 CXX=g++
-CXXFLAGS=-I/opt/X11/include -O0 -g
+CXXFLAGS=-I/opt/X11/include -O3 -w
 LDFLAGS=-L/opt/X11/lib
 all: XAsteroids AutoRepeatOn
 
 XAsteroids: rotatorDisplayData.o compositePixmap.o XAsteroids.o
 	${CXX} ${CXXFLAGS} XAsteroids.o rotatorDisplayData.o compositePixmap.o ${LDFLAGS} -lXm -lXt -lX11 -oXAsteroids
 
-rotatorDisplayData.o: rotatorDisplayData.H rotatorDisplayData.C
-	${CXX} ${CXXFLAGS}  -c rotatorDisplayData.C
+rotatorDisplayData.o: utilities/pixmaps/rotated/rotatorDisplayData.H utilities/pixmaps/rotated/rotatorDisplayData.C
+	${CXX} ${CXXFLAGS}  -c utilities/pixmaps/rotated/rotatorDisplayData.C
 
-compositePixmap.o: compositePixmap.H compositePixmap.C
-	${CXX} ${CXXFLAGS}  -c compositePixmap.C
+compositePixmap.o: utilities/pixmaps/composite/compositePixmap.H utilities/pixmaps/composite/compositePixmap.C
+	${CXX} ${CXXFLAGS}  -c utilities/pixmaps/composite/compositePixmap.C
 
-XAsteroids.o: ENEMYDecor.xbm ROCKDecor1.xbm ROCKDecor2.xbm ROCKDecor3.xbm XAsteroids.C box.H bullet.H compositePixmap.H enemyBulletDecor.xbm enemyBulletGroup.H enemyDecor.xbm enemyGroup.H explosion.H explosionCenter.xbm explosionEdge.xbm explosionGraphic.H explosionMiddle.xbm frameList.H frameTimer.H intersection2d.H liner.H linkedArray.H movableObject.H options.H playingField.H rockGroup.H rotator.H rotatorDisplayData.H score.H starDestroyerIcon.xbm NCC1701DIcon.xbm NCC1701AIcon.xbm shipBulletDecor.xbm shipBulletGroup.H starDestroyerDecor.xbm NCC1701DDecorBottom.xbm NCC1701DDecorTop.xbm NCC1701ADecor.xbm shipGroup.H button.H shipYard.H spawner.H stage.H starDestroyerThrustCenter.xbm starDestroyerThrustEdge.xbm starDestroyerThrustMiddle.xbm NCC1701DThrustDecor.xbm NCC1701AThrustDecor.xbm vector2d.H
+XAsteroids.o: bitmaps/ENEMYDecor.xbm bitmaps/ROCKDecor1.xbm bitmaps/ROCKDecor2.xbm bitmaps/ROCKDecor3.xbm XAsteroids.C utilities/box.H objects/bullet.H utilities/pixmaps/composite/compositePixmap.H bitmaps/enemyBulletDecor.xbm objects/enemies/enemyBulletGroup.H bitmaps/enemyDecor.xbm objects/enemies/enemyGroup.H objects/explosions/explosion.H bitmaps/explosionCenter.xbm bitmaps/explosionEdge.xbm objects/explosions/explosionGraphic.H bitmaps/explosionMiddle.xbm utilities/frames/frameList.H utilities/frames/frameTimer.H utilities/intersection2d.H utilities/liner.H utilities/linkedArray.H objects/movableObject.H gamePlay/options/options.H gamePlay/playingField.H objects/rocks/rockGroup.H utilities/pixmaps/rotated/rotator.H utilities/pixmaps/rotated/rotatorDisplayData.H gamePlay/score.H bitmaps/starDestroyerIcon.xbm bitmaps/NCC1701DIcon.xbm bitmaps/NCC1701AIcon.xbm bitmaps/shipBulletDecor.xbm objects/ships/shipBulletGroup.H bitmaps/starDestroyerDecor.xbm bitmaps/NCC1701DDecorBottom.xbm bitmaps/NCC1701DDecorTop.xbm bitmaps/NCC1701ADecor.xbm objects/ships/shipGroup.H gamePlay/options/button.H gamePlay/shipYard.H objects/rocks/spawner.H gamePlay/stage.H bitmaps/starDestroyerThrustCenter.xbm bitmaps/starDestroyerThrustEdge.xbm bitmaps/starDestroyerThrustMiddle.xbm bitmaps/NCC1701DThrustDecor.xbm bitmaps/NCC1701AThrustDecor.xbm utilities/vector2d.H
 	${CXX} ${CXXFLAGS}  -c XAsteroids.C
 
 AutoRepeatOn: AutoRepeatOn.C

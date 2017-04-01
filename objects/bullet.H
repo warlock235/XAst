@@ -1,16 +1,16 @@
-#include"explosion.H"
+#include"explosions/explosion.H"
 
 #ifndef _BULLET_H
 #define _BULLET_H
 
-#include"vector2d.H"
-#include"box.H"
-#include"rotator.H"
-#include"frameList.H"
-#include"frameTimer.H"
+#include"../utilities/vector2d.H"
+#include"../utilities/box.H"
+#include"../utilities/pixmaps/rotated/rotator.H"
+#include"../utilities/frames/frameList.H"
+#include"../utilities/frames/frameTimer.H"
 #include<X11/Xlib.h>
 #include"movableObject.H"
-#include"intersection2d.H"
+#include"../utilities/intersection2d.H"
 
 class BulletExplosion;
 class Bullet: public MovableObject
@@ -48,7 +48,7 @@ class BulletExplosion: public Explosion
     inline void DisplayFrame();
  };
 
-#include "playingField.H"
+#include "../gamePlay/playingField.H"
 
 inline Bullet::Bullet(Rotator* const rot,
                        const int numFrames,

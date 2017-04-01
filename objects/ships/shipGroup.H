@@ -1,36 +1,36 @@
 #include<stdlib.h>
 #include<X11/Xlib.h>
-#include"vector2d.H"
-#include"box.H"
-#include"compositePixmap.H"
-#include"rotatorDisplayData.H"
-#include"rotator.H"
-#include"frameList.H"
-#include"frameTimer.H"
-#include"movableObject.H"
-#include"intersection2d.H"
-#include"explosion.H"
+#include"../../utilities/vector2d.H"
+#include"../../utilities/box.H"
+#include"../../utilities/pixmaps/composite/compositePixmap.H"
+#include"../../utilities/pixmaps/rotated/rotatorDisplayData.H"
+#include"../../utilities/pixmaps/rotated/rotator.H"
+#include"../../utilities/frames/frameList.H"
+#include"../../utilities/frames/frameTimer.H"
+#include"../movableObject.H"
+#include"../../utilities/intersection2d.H"
+#include"../explosions/explosion.H"
 #include"shipBulletGroup.H"
-#include"stage.H"
-#include"options.H"
+#include"../../gamePlay/stage.H"
+#include"../../gamePlay/options/options.H"
 
 #ifdef _CORP_LOGO_
-#include"starDestroyerDecor.xbm"
+#include"../../bitmaps/starDestroyerDecor.xbm"
 #else
-#include"fortytwo.xbm"
+#include"../../bitmaps/fortytwo.xbm"
 #endif
 
-#include"starDestroyerThrustEdge.xbm"
-#include"starDestroyerThrustMiddle.xbm"
-#include"starDestroyerThrustCenter.xbm"
-#include"starDestroyerIcon.xbm"
-#include"NCC1701DDecorBottom.xbm"
-#include"NCC1701DDecorTop.xbm"
-#include"NCC1701DThrustDecor.xbm"
-#include"NCC1701DIcon.xbm"
-#include"NCC1701ADecor.xbm"
-#include"NCC1701AThrustDecor.xbm"
-#include"NCC1701AIcon.xbm"
+#include"../../bitmaps/starDestroyerThrustEdge.xbm"
+#include"../../bitmaps/starDestroyerThrustMiddle.xbm"
+#include"../../bitmaps/starDestroyerThrustCenter.xbm"
+#include"../../bitmaps/starDestroyerIcon.xbm"
+#include"../../bitmaps/NCC1701DDecorBottom.xbm"
+#include"../../bitmaps/NCC1701DDecorTop.xbm"
+#include"../../bitmaps/NCC1701DThrustDecor.xbm"
+#include"../../bitmaps/NCC1701DIcon.xbm"
+#include"../../bitmaps/NCC1701ADecor.xbm"
+#include"../../bitmaps/NCC1701AThrustDecor.xbm"
+#include"../../bitmaps/NCC1701AIcon.xbm"
 
 #ifndef _SHIPGROUP_H
 #define _SHIPGROUP_H
@@ -205,7 +205,7 @@ class ShipGroup
 
 extern ShipGroup shipGroup;
 
-#include"playingField.H"
+#include"../../gamePlay/playingField.H"
 
 
 double Ship::maxVelocity=.43*PlayingField::maxLinearVelocity,

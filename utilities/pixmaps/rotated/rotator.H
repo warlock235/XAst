@@ -9,8 +9,8 @@ class AngVel
  {friend class Rotator;
   public:
     operator double() const;
-    AngVel& operator=(const AngVel&);   
-    AngVel& operator=(const double);   
+    AngVel& operator=(const AngVel&);
+    AngVel& operator=(const double);
 
   private:
     AngVel();
@@ -28,9 +28,9 @@ class Rotator
     Rotator& SetRotator(const RotatorDisplayData* const rddAddr,
                     const double av);
     const Vector2d* const
-      GetVecsAtTime(const double time) const;       
+      GetVecsAtTime(const double time) const;
     const int
-      GetNumVecs() const;       
+      GetNumVecs() const;
     const Pixmap&
       GetPixAtTime(const double time) const;
     GC&
@@ -60,7 +60,7 @@ class Rotator
     Rotator&
       UpdateMaxLinearVelocity(const double maxLinearVelocity);
   private:
-    const RotatorDisplayData* rotData; 
+    const RotatorDisplayData* rotData;
     AngVel angularVelocity;
     double angle;
  };
@@ -81,7 +81,7 @@ inline AngVel& AngVel::operator=(const AngVel& av)
   return *this;
  }
 
-inline AngVel& AngVel::operator=(const double fav)   
+inline AngVel& AngVel::operator=(const double fav)
  {angularVelocity=fav;
   if (fabs(angularVelocity)>maxAngularVelocity)
     angularVelocity=angularVelocity<0 ? -maxAngularVelocity
@@ -90,7 +90,7 @@ inline AngVel& AngVel::operator=(const double fav)
  }
 
 inline Rotator::Rotator(const double mav): rotData(NULL),
-                                           angle(0) 
+                                           angle(0)
  {angularVelocity.maxAngularVelocity=mav;
   angularVelocity.angularVelocity=0;
  }
@@ -98,7 +98,7 @@ inline Rotator::Rotator(const double mav): rotData(NULL),
 inline Rotator::Rotator(const RotatorDisplayData* const rddAddr,
                         const double av,
 			const double mlv): rotData(rddAddr),
-                                          angle(0) 
+                                          angle(0)
  {angularVelocity.maxAngularVelocity=mlv/(4*rotData->GetRadius());
   angularVelocity=av;
  }
@@ -106,9 +106,9 @@ inline Rotator::Rotator(const RotatorDisplayData* const rddAddr,
 inline Rotator& Rotator::SetRotator(const RotatorDisplayData* const rddAddr,
                                     const double av)
  {rotData=rddAddr;
-  angle=0; 
+  angle=0;
   angularVelocity=av;
-  return *this; 
+  return *this;
  }
 
 inline const Vector2d* const
@@ -118,7 +118,7 @@ Rotator::GetVecsAtTime(const double time) const
 
 inline const int
 Rotator::GetNumVecs() const
- {return rotData->GetNumVecs(); 
+ {return rotData->GetNumVecs();
  }
 
 inline const Pixmap&
@@ -165,7 +165,7 @@ inline const double
 Rotator::AngularVelocity() const
  {return angularVelocity.angularVelocity;
  }
- 
+
 inline const double
 Rotator::MaxAngularVelocity() const
  {return angularVelocity.maxAngularVelocity;

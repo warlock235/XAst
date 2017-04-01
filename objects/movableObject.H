@@ -1,6 +1,6 @@
 class MovableObject;
 
-#include"intersection2d.H"
+#include"../utilities/intersection2d.H"
 
 #ifndef _MOVABLEOBJECT_H
 #define _MOVABLEOBJECT_H
@@ -9,10 +9,10 @@ class MovableObject;
 #include<stdlib.h>
 #include<iostream>
 #include<math.h>
-#include"box.H"
-#include"vector2d.H"
-#include"liner.H"
-#include"rotator.H"
+#include"../utilities/box.H"
+#include"../utilities/vector2d.H"
+#include"../utilities/liner.H"
+#include"../utilities/pixmaps/rotated/rotator.H"
 
 class MovableObject
  {typedef int Boolean;
