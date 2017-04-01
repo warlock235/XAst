@@ -19,4 +19,4 @@ AutoRepeatOn: AutoRepeatOn.C
 	${CXX} ${CXXFLAGS}  ${LDFLAGS} -lX11 AutoRepeatOn.C -oAutoRepeatOn
 
 clean:
-	\rm -rf XAsteroids AutoRepeatOn *.o *.bak *.CKP
+	\rm -rf XAsteroids AutoRepeatOn *.o *.u *.bak *.CKP
