@@ -3,6 +3,7 @@
 #include"rotatorDisplayData.H"
 #include<X11/Xutil.h>
 #include<X11/Intrinsic.h>
+#include<stdlib.h>
 
 using namespace std;
 

@@ -1,6 +1,10 @@
 CXX=g++
 CXXFLAGS=-I/opt/X11/include -O3 -w
+ifdef DEBUG
+CXXFLAGS+=-g
+endif
 LDFLAGS=-L/opt/X11/lib
+
 all: XAsteroids AutoRepeatOn
 
 XAsteroids: rotatorDisplayData.o compositePixmap.o XAsteroids.o
