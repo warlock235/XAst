@@ -1,10 +1,6 @@
 CXX=g++
-CXXFLAGS=-I/opt/X11/include -O3 -w
-ifdef DEBUG
-CXXFLAGS+=-g
-endif
-LDFLAGS=-L/opt/X11/lib
-
+CXXFLAGS=-I/usr/include/X11 -O3 -w
+LDFLAGS=-L/usr/lib/X11
 all: XAsteroids AutoRepeatOn
 
 XAsteroids: rotatorDisplayData.o compositePixmap.o XAsteroids.o
@@ -20,7 +16,7 @@ XAsteroids.o: bitmaps/ENEMYDecor.xbm bitmaps/ROCKDecor1.xbm bitmaps/ROCKDecor2.x
 	${CXX} ${CXXFLAGS}  -c XAsteroids.C
 
 AutoRepeatOn: AutoRepeatOn.C
-	${CXX} ${CXXFLAGS}  ${LDFLAGS} -lX11 AutoRepeatOn.C -oAutoRepeatOn
+	${CXX} ${CXXFLAGS} AutoRepeatOn.C ${LDFLAGS} -lX11 -o AutoRepeatOn
 
 clean:
 	\rm -rf XAsteroids AutoRepeatOn *.o *.u *.bak *.CKP

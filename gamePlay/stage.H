@@ -209,7 +209,7 @@ inline Stage::Stage()
   XGetKeyboardControl(display,&KBState);
   autoRepeatState=KBState.global_auto_repeat;
   action.sa_handler=Stage::terminate;
-  sigemptyset(&action.sa_mask);
+  *(unsigned int*)&action.sa_mask=0;
   action.sa_flags=0;
   sigaction(SIGINT,&action,NULL);
   sigaction(SIGQUIT,&action,NULL);
@@ -298,7 +298,7 @@ void Stage::terminate(int i)
     XAutoRepeatOn(stage.display);
   struct sigaction action;
   action.sa_handler=SIG_DFL;
-  sigemptyset(&action.sa_mask);
+  *(unsigned int*)&action.sa_mask=0;
   action.sa_flags=0;
   sigaction(i,&action,NULL);
   raise(i);

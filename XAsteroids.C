@@ -21,7 +21,7 @@ ShipGroup shipGroup;
 ShipYard shipYard(stage.display,stage.window,
 		              shipGroup.ship->icon,
 		              shipGroup.ship->iconWidth,shipGroup.ship->iconHeight,
-                  shipGroup.ship->iconColor,
+                      shipGroup.ship->iconColor,
 		              stage.shipYardWidth,stage.shipYardHeight,Stage::shipYardBg);
 ShipBulletGroup shipBulletGroup;
 RockGroup rockGroup;
