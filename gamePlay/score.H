@@ -81,16 +81,16 @@ inline Score::Score(): currentScore(0),
                                     ? fnLen2
                                     : fnLen3)
                      ? fnLen1
-		                 : fnLen2)+1];
+		             : fnLen2)+1];
   strcpy(fileName,"/Volumes/XAsteroids/XAst/hiScore.data");
   ifstream file(fileName,ios::in);
   if (!file)
    {file.open(strcat(strcpy(fileName,userData->pw_dir),
-                          "/XAsteroids/hiScore.data"),
+                            "/XAsteroids/hiScore.data"),
               ios::in);
     if (!file)
      {file.open(strcat(strcpy(fileName,cwd),
-                            "/XAsteroids/hiScore.data"),
+                              "/XAsteroids/hiScore.data"),
                 ios::in);
 
       if (!file)
@@ -107,7 +107,7 @@ inline Score::Score(): currentScore(0),
   delete [] cwd;
   do
     file>>name[numScores]>>score[numScores];
-  while(!file.eof()&&++numScores<sizeof(score)/sizeof(int));
+  while(++numScores<sizeof(score)/sizeof(int)&&!file.eof());
  }
 
 inline void Score::UpdateScoreArray()
@@ -115,7 +115,7 @@ inline void Score::UpdateScoreArray()
    {name[numScores][0]='\0';
     score[numScores++]=-1;
    }
-  for (int i=0;i<numScores;++i)
+ for (int i=0;i<numScores;++i)
     if (currentScore>score[i])
      {for (int j=numScores<sizeof(score)/sizeof(int)
                  ? numScores
@@ -136,7 +136,7 @@ inline Score& Score::UpdateTopTen()
      {numScores=0;
       do
         ifile>>name[numScores]>>score[numScores];
-      while(!ifile.eof()&&++numScores<sizeof(score)/sizeof(int));
+      while(++numScores<sizeof(score)/sizeof(int)&&!ifile.eof());
      }
     UpdateScoreArray();
     ofstream ofile(fileName,ios::out);
