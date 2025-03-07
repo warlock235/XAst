@@ -46,6 +46,6 @@ sudo ./setup.py install-repo
 sudo ./setup.py install --prefix=/usr --install-layout=deb
 cd ..
 
-# Run Xasteroids scaled. 2 is the default scale factor. <scaleFactor> can be fractional (i.e. 1.75).
 sudo chmod a+x XAstRunScaled.sh
+# Run Xasteroids scaled. 2 is the default scale factor. <scaleFactor> can be fractional (i.e. 1.75).
 ./XAstRunScaled.sh <scaleFactor>
