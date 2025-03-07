@@ -18,7 +18,7 @@ cd ..
 
 git clone https://github.com/Xpra-org/xpra
 
-sudo apt-get install --upgrade xvfb x11-xserver-utils python3-setuptools build-essential python3-dev libxxhash-dev libxdamage-dev 
+sudo apt-get install --upgrade xvfb x11-xserver-utils python3-setuptools build-essential python3-dev libxxhash-dev libxdamage-dev
 sudo apt-get install --upgrade libxkbfile-dev libxrandr-dev libxtst-dev libxcomposite-dev libxres-dev libgtk-3-dev
 sudo apt-get install --upgrade libgdk3.0-cil-dev python3-cairo-dev python-gi-dev liblz4-dev libvpx-dev libx264-dev xterm
 
@@ -44,7 +44,8 @@ sudo ./setup.py install-repo
 # Made a couple of code changes so ..XAst/xpra/setup.py would recognize Linux Mint 21.3 as Ubuntu "jammy" and Mint 22 as Ubuntu "noble".
 #   If it barfs on Linux version, change setup.py. The necessary change should be obvious.
 sudo ./setup.py install --prefix=/usr --install-layout=deb
+cd ..
 
 # Run Xasteroids scaled. 2 is the default scale factor. <scaleFactor> can be fractional (i.e. 1.75).
+sudo chmod a+x XAstRunScaled.sh
 ./XAstRunScaled.sh <scaleFactor>
-
